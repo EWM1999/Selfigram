@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="tsp-VE-Xs2">
             <objects>
-                <viewController id="gKt-5e-PtF" sceneMemberID="viewController">
+                <viewController id="gKt-5e-PtF" customClass="ProfileViewController" customModule="Selfigram" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yrn-EX-QnW"/>
                         <viewControllerLayoutGuide type="bottom" id="1IE-ow-TPC"/>
@@ -20,9 +20,45 @@
                     <view key="view" contentMode="scaleToFill" id="0SN-S8-xhv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Uzd-ZZ-WQi">
+                                <rect key="frame" x="97" y="107" width="180" height="185"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="185" id="BUy-Qb-MYb"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="185" id="LhE-LM-q3j"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="dos-5I-E40"/>
+                                    <constraint firstAttribute="width" constant="180" id="nyg-Xv-Wro"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuP-Au-Fz1">
+                                <rect key="frame" x="160.5" y="300" width="54" height="30"/>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <action selector="cameraButtonPressed:" destination="gKt-5e-PtF" eventType="touchUpInside" id="k3z-Po-GfX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pd-z4-Blv">
+                                <rect key="frame" x="148" y="323" width="79" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GuP-Au-Fz1" firstAttribute="centerX" secondItem="0SN-S8-xhv" secondAttribute="centerX" id="Jz7-cg-ONv"/>
+                            <constraint firstItem="1Pd-z4-Blv" firstAttribute="top" secondItem="Uzd-ZZ-WQi" secondAttribute="bottom" constant="31" id="P0M-Sc-b7K"/>
+                            <constraint firstItem="Uzd-ZZ-WQi" firstAttribute="top" secondItem="Yrn-EX-QnW" secondAttribute="bottom" constant="43" id="ZSe-MW-F1q"/>
+                            <constraint firstItem="1Pd-z4-Blv" firstAttribute="centerX" secondItem="0SN-S8-xhv" secondAttribute="centerX" id="aZM-wx-ou0"/>
+                            <constraint firstItem="Uzd-ZZ-WQi" firstAttribute="centerX" secondItem="0SN-S8-xhv" secondAttribute="centerX" id="kFS-C0-fIf"/>
+                            <constraint firstItem="GuP-Au-Fz1" firstAttribute="top" secondItem="Uzd-ZZ-WQi" secondAttribute="bottom" constant="8" id="u2K-ek-7Di"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DEI-jy-gzq"/>
+                    <connections>
+                        <outlet property="profileImageView" destination="Uzd-ZZ-WQi" id="qfD-Vu-uK9"/>
+                        <outlet property="usernameLabel" destination="1Pd-z4-Blv" id="NiP-UF-Gbm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a5o-lu-1wY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -173,5 +209,6 @@
         <image name="Activities" width="25" height="25"/>
         <image name="NewsFeed" width="25" height="25"/>
         <image name="Profile" width="25" height="25"/>
+        <image name="placeholder" width="256" height="256"/>
     </resources>
 </document>
