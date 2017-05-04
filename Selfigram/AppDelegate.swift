@@ -6,6 +6,7 @@
 //  Copyright © 2017 Emily Medema. All rights reserved.
 //
 
+import Parse
 import UIKit
 
 @UIApplicationMain
@@ -16,6 +17,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Initialize Parse.
+        // Replace YOUR_APP_ID and URL_TO_YOUR_PARSE_SERVER with the values you chose when you installed your Parse server.
+        let configuration = ParseClientConfiguration { clientConfiguration in
+            clientConfiguration.applicationId = "ewm-selfiegram-lhl"
+            clientConfiguration.server = "https://emilymedema-selfiegram.herokuapp.com/parse"
+        }
+        Parse.initialize(with: configuration)
+
+        let testObject = PFObject(className: "TestObject")
+        testObject["foo"] = "bar"
+        testObject.saveInBackground(block: { (success: Bool, error: Error?) -> Void in
+            if success {
+                print("Object has been saved.")
+            }else{
+                print("We have an error \(error)")
+            }
+        })
+        
         return true
     }
 
