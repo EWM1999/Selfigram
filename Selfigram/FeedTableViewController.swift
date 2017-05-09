@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class FeedTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -15,53 +16,20 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=cf1cc51d1751c4dceec2214a4b8de9dd&tags=cat")!
-        
-        let task = URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) -> Void in
-            print ("inside dataTaskWithURL with data = \(data!)")
-        
-            if let jsonUnformatted = try? JSONSerialization.jsonObject(with: data!, options: []) {
-              
-                let json = jsonUnformatted as? [String : AnyObject]
-                let photosDictionary = json?["photos"] as? [String : AnyObject]
-                if let photosArray = photosDictionary?["photo"] as? [[String : AnyObject]] {
-                    
-                    for photo in photosArray {
-                        
-                        if let farmID = photo["farm"] as? Int,
-                            let serverID = photo["server"] as? String,
-                            let photoID = photo["id"] as? String,
-                            let secret = photo["secret"] as? String {
-                            
-                            let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
-                            print(photoURLString)
-                            
-                            if let photoURL = URL(string: photoURLString) {
-                                
-                                let me = User(aUsername: "sam", aProfileImage: UIImage(named: "Grumpy-Cat")!)
-                                let post = Post(imageURL: photoURL, user: me, comment: "A Flickr Selfie")
-                                self.posts.append(post)
-                            }
-                            
-                        }
-                        
-                    }
-                   
-                    OperationQueue.main.addOperation {
-                        self.tableView.reloadData()
-                    }
+        if let query = Post.query() {
+            query.order(byDescending: "createdAt")
+            query.includeKey("user")
+            
+            query.findObjectsInBackground(block: { (posts, error) -> Void in
                 
-                } else {
-                    print("error with response data")
+                if let posts = posts as? [Post]{
+                    self.posts = posts
+                    self.tableView.reloadData()
                 }
-            }
-        })
-            
-            
-        
-        task.resume()
-        
-        print ("outside dataTaskWithURL")
+                
+            })
+        }
+    }
 
         
 //        let me = User(aUsername: "danny", aProfileImage: UIImage(named: "Grumpy-Cat")!)
@@ -79,7 +47,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
          //self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -98,34 +66,29 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
         }
 
     
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! SelfieCell
-            
-            let post = self.posts[indexPath.row]
-            
-            cell.selfieImageView.image = nil
-            
-            let task = URLSession.shared.downloadTask(with: post.imageURL) { (url, response, error) -> Void in
-                
-                if let imageURL = url, let imageData = try? Data(contentsOf: imageURL) {
-                    OperationQueue.main.addOperation {
-                        
-                        cell.selfieImageView.image = UIImage(data: imageData)
-                        
-                    }
-                }
-                
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! SelfieCell
+        
+        let post = self.posts[indexPath.row]
+        
+        // I've added this line to prevent flickering of images
+        // We are inside the cellForRowAtIndexPath method that gets called everything we lay out a cell
+        // This always resets the image to blank, waits for the image to download, and then sets it
+        cell.selfieImageView.image = nil
+        
+        let imageFile = post.image
+        imageFile.getDataInBackground(block: {(data, error) -> Void in
+            if let data = data {
+                let image = UIImage(data: data)
+                cell.selfieImageView.image = image
             }
-            
-            task.resume()
-            
-            cell.usernameLabel.text = post.user.username
-            cell.commentLabel.text = post.comment
-            
-            return cell
-        }
-            
-
+        })
+        
+        cell.usernameLabel.text = post.user.username
+        cell.commentLabel.text = post.comment
+        
+        return cell
+    }
 
     @IBAction func cameraButtonPressed(_ sender: Any) {
         
@@ -182,8 +145,35 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     
         //5. Now that we have added a post, reload our table
         tableView.reloadData()
-    }
-
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            // setting the compression quality to 90%
+            if let imageData = UIImageJPEGRepresentation(image, 0.9),
+                let imageFile = PFFile(data: imageData),
+                let user = PFUser.current(){
+                
+                //2. We create a Post object from the image
+                let post = Post(image: imageFile, user: user, comment: "A Selfie")
+                
+                post.saveInBackground(block: { (success, error) -> Void in
+                    if success {
+                        print("Post successfully saved in Parse")
+                        
+                        //3. Add post to our posts array, chose index 0 so that it will be added
+                        //   to the top of your table instead of at the bottom (default behaviour)
+                        self.posts.insert(post, at: 0)
+                        
+                        //4. Now that we have added a post, updating our table
+                        //   We are just inserting our new Post instead of reloading our whole tableView
+                        //   Both method would work, however, this gives us a cool animation for free
+                        
+                        let indexPath = IndexPath(row: 0, section: 0)
+                        self.tableView.insertRows(at: [indexPath], with: .automatic)
+                    }
+                })
+            }
+        }
 
 
     /*
@@ -231,4 +221,5 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     }
     */
 
+}
 }
