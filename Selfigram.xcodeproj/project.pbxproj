@@ -16,6 +16,7 @@
 		254765D11E9C70B40080C716 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 254765CF1E9C70B40080C716 /* LaunchScreen.storyboard */; };
 		254765DC1E9C70B40080C716 /* SelfigramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254765DB1E9C70B40080C716 /* SelfigramTests.swift */; };
 		254765E71E9C70B40080C716 /* SelfigramUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254765E61E9C70B40080C716 /* SelfigramUITests.swift */; };
+		256BF05C1EC3FB03009D93E3 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256BF05B1EC3FB03009D93E3 /* Activity.swift */; };
 		257F44BE1E9F188200CDB5D0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F44BD1E9F188200CDB5D0 /* ProfileViewController.swift */; };
 		25A465471EAEE790006E6570 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A465461EAEE790006E6570 /* FeedTableViewController.swift */; };
 		25AEEA1F1EB18805007DDDF9 /* SelfieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AEEA1E1EB18805007DDDF9 /* SelfieCell.swift */; };
@@ -58,6 +59,7 @@
 		254765E21E9C70B40080C716 /* SelfigramUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SelfigramUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		254765E61E9C70B40080C716 /* SelfigramUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfigramUITests.swift; sourceTree = "<group>"; };
 		254765E81E9C70B40080C716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		256BF05B1EC3FB03009D93E3 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		257F44BD1E9F188200CDB5D0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		25A465461EAEE790006E6570 /* FeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		25AEEA1E1EB18805007DDDF9 /* SelfieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieCell.swift; sourceTree = SOURCE_ROOT; };
@@ -129,6 +131,7 @@
 				254765C61E9C70B40080C716 /* AppDelegate.swift */,
 				254765C81E9C70B40080C716 /* ViewController.swift */,
 				254765CA1E9C70B40080C716 /* Main.storyboard */,
+				256BF05B1EC3FB03009D93E3 /* Activity.swift */,
 				25AEEA1E1EB18805007DDDF9 /* SelfieCell.swift */,
 				25A465461EAEE790006E6570 /* FeedTableViewController.swift */,
 				257F44BD1E9F188200CDB5D0 /* ProfileViewController.swift */,
@@ -467,6 +470,7 @@
 				257F44BE1E9F188200CDB5D0 /* ProfileViewController.swift in Sources */,
 				254765C91E9C70B40080C716 /* ViewController.swift in Sources */,
 				254765C71E9C70B40080C716 /* AppDelegate.swift in Sources */,
+				256BF05C1EC3FB03009D93E3 /* Activity.swift in Sources */,
 				2505406C1EA85E21002D8923 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

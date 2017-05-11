@@ -124,6 +124,20 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybH-ga-fDg">
+                                            <rect key="frame" x="336" y="258" width="23" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="23" id="43J-hL-eFD"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="AS7-XU-gCp"/>
+                                                <constraint firstAttribute="height" constant="20" id="PTd-Jb-dZk"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="23" id="jYY-D6-E5J"/>
+                                            </constraints>
+                                            <state key="normal" image="hearts-off"/>
+                                            <state key="selected" image="hearts-on"/>
+                                            <connections>
+                                                <action selector="likeButtonClicked:" destination="Xsu-si-wue" eventType="touchUpInside" id="8ZQ-No-QOK"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="QNg-M1-e7c" firstAttribute="leading" secondItem="DDx-GS-8zx" secondAttribute="leading" id="AGa-Hc-Lp2"/>
@@ -132,11 +146,16 @@
                                         <constraint firstItem="QNg-M1-e7c" firstAttribute="top" secondItem="DDx-GS-8zx" secondAttribute="top" id="WgQ-Y2-O3G"/>
                                         <constraint firstItem="1SK-qO-gn3" firstAttribute="top" secondItem="GCQ-5C-Ffj" secondAttribute="bottom" constant="8" id="drJ-F1-jON"/>
                                         <constraint firstItem="GCQ-5C-Ffj" firstAttribute="leading" secondItem="DDx-GS-8zx" secondAttribute="leadingMargin" id="gpw-z4-HLX"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ybH-ga-fDg" secondAttribute="trailing" constant="8" id="lB2-H7-8Ac"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ybH-ga-fDg" secondAttribute="trailing" constant="8" id="n3h-Vo-EIn"/>
                                         <constraint firstItem="1SK-qO-gn3" firstAttribute="leading" secondItem="DDx-GS-8zx" secondAttribute="leadingMargin" id="qjz-A0-2FH"/>
+                                        <constraint firstItem="ybH-ga-fDg" firstAttribute="top" secondItem="QNg-M1-e7c" secondAttribute="bottom" constant="8" id="rfc-MB-POX"/>
+                                        <constraint firstItem="ybH-ga-fDg" firstAttribute="top" secondItem="QNg-M1-e7c" secondAttribute="bottom" constant="8" id="zvN-4i-4ss"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="commentLabel" destination="1SK-qO-gn3" id="ObW-rk-RvP"/>
+                                    <outlet property="likeButton" destination="ybH-ga-fDg" id="Hvc-9Q-krU"/>
                                     <outlet property="selfieImageView" destination="QNg-M1-e7c" id="0yL-w9-qeW"/>
                                     <outlet property="usernameLabel" destination="GCQ-5C-Ffj" id="pN2-g8-YEN"/>
                                 </connections>
@@ -250,6 +269,8 @@
         <image name="Activities" width="25" height="25"/>
         <image name="NewsFeed" width="25" height="25"/>
         <image name="Profile" width="25" height="25"/>
+        <image name="hearts-off" width="42" height="37"/>
+        <image name="hearts-on" width="42" height="37"/>
         <image name="placeholder" width="256" height="256"/>
     </resources>
 </document>
